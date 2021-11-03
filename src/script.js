@@ -1,81 +1,76 @@
+import drinkCard from "./components/Card.js";
+import singleVault from "./scripts/class/Vault.js";
+import Drink from "./scripts/class/Drink.js"
+
+let id = 0;
+
+singleVault.addProduct(new Drink(id++, "Vodka", 100));
+singleVault.addProduct(new Drink(id++, "Vodka", 100));
+singleVault.addProduct(new Drink(id++, "Vodka", 100));
+singleVault.addProduct(new Drink(id++, "Vodka", 100));
+singleVault.addProduct(new Drink(id++, "Vodka", 100));
+singleVault.addProduct(new Drink(id++, "Vodka", 100));
+singleVault.addProduct(new Drink(id++, "Vodka", 100));
+singleVault.addProduct(new Drink(id++, "Vodka", 100));
+singleVault.addProduct(new Drink(id++, "Vodka", 100));
+singleVault.addProduct(new Drink(id++, "Vodka", 100));
+
 const button = document.getElementById('button');
-const vodka = document.getElementById('vodka');
-const carrito = document.getElementById('carrito');
 
-let id = 1;
+function renderList(){
+    const totalCard = singleVault.totalList();
 
-
-let precioTotal = 0;
-
-class Cart {
-    constructor(){
-        this.products = [];
-        this.totalValue = 0;
+    for (let card of totalCard){
+        drinkCard(card.name, card.value.toString());
     }
 
-    addProduct (obj){
-        this.products.push(obj)
-        this.totalValue += obj.value; 
-    }
-
-    deleteProduct (obj) {
-        this.totalValue -= obj.value;
-        this.products.splice(this.products.find(product => product.id == obj.id), 1);
-    }
-    
-    get total(){
-        return `${this.products.length} vodka y un total de ${this.totalValue} pesos`;
-    }
-
+    button.classList.add('hidden');
 }
 
-class Vodka{
-    constructor(){
-        this.id = id;
-        id++;
-        this.value = 100;
-    }
-}
-
-const cart = new Cart();
+button.addEventListener('click', renderList);
 
 
 
 
 
-const obtenerPrecio = (precio, cuotas) => {return calcularCuotas(calcularIVA(precio),cuotas)}  
 
-const calcularIVA = (precioTotal) => {
-    return Math.round(precioTotal + (precioTotal * 0.30));
-}
+// const vodka = document.getElementById('vodka');
+// const carrito = document.getElementById('carrito');
 
-const calcularCuotas = (precioTotal, cantidadCuotas) => {
-    return alert(`Pagaras en ${cantidadCuotas} cuotas de ${Math.round(precioTotal / cantidadCuotas)} pesos argentinos`);
-}
 
-button.addEventListener('click', () => {
-    obtenerPrecio(cart.totalValue, parseInt(prompt(`Total $${cart.totalValue}
-    Ingrese cantidad total de cuotas`)));
-})
+// const obtenerPrecio = (precio, cuotas) => {return calcularCuotas(calcularIVA(precio),cuotas)}  
 
-vodka.addEventListener('click', ()=>{
-    cart.addProduct(new Vodka());
-    alert(`Se agrego vodka al carrito`)
-})
+// const calcularIVA = (precioTotal) => {
+//     return Math.round(precioTotal + (precioTotal * 0.30));
+// }
 
-carrito.addEventListener('click', () => {
-    alert(cart.total);
-})
+// const calcularCuotas = (precioTotal, cantidadCuotas) => {
+//     return alert(`Pagaras en ${cantidadCuotas} cuotas de ${Math.round(precioTotal / cantidadCuotas)} pesos argentinos`);
+// }
+
+
+
+//event listeners
+
+
+// vodka.addEventListener('click', ()=>{
+//     cart.addProduct(new Vodka());
+//     alert(`Se agrego vodka al carrito`)
+// })
+
+// carrito.addEventListener('click', () => {
+//     alert(cart.total);
+// })
 
 
 //function para ordenar por precio
 
-const sortByPrice = (arrayItems) => {
-    //Esta funcion ordenara los items de forma ascendente
-    //Sera un array de objects de bebidas
+// const sortByPrice = (arrayItems) => {
+//     //Esta funcion ordenara los items de forma ascendente
+//     //Sera un array de objects de bebidas
 
-    arrayItems.sort((a, b) => {
-        // a y b son objects 
-        return a.price - b.price; 
-    })
-}
+//     arrayItems.sort((a, b) => {
+//         // a y b son objects 
+//         return a.price - b.price; 
+//     })
+// }
