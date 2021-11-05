@@ -2,75 +2,93 @@ import drinkCard from "./components/Card.js";
 import singleVault from "./scripts/class/Vault.js";
 import Drink from "./scripts/class/Drink.js"
 
-let id = 0;
 
-singleVault.addProduct(new Drink(id++, "Vodka", 100));
-singleVault.addProduct(new Drink(id++, "Vodka", 100));
-singleVault.addProduct(new Drink(id++, "Vodka", 100));
-singleVault.addProduct(new Drink(id++, "Vodka", 100));
-singleVault.addProduct(new Drink(id++, "Vodka", 100));
-singleVault.addProduct(new Drink(id++, "Vodka", 100));
-singleVault.addProduct(new Drink(id++, "Vodka", 100));
-singleVault.addProduct(new Drink(id++, "Vodka", 100));
-singleVault.addProduct(new Drink(id++, "Vodka", 100));
-singleVault.addProduct(new Drink(id++, "Vodka", 100));
+const main = document.getElementById('main');
+const question = document.getElementById('question');
+const intro = document.getElementById('intro');
+const error = document.getElementById('error');
+const confirmAge = document.getElementById('button-confirm-age');
+const errorAge = document.getElementById('button-error-age');
+const confirmDirection = document.getElementById('button-confirm-direction');
+const direction = document.getElementById('direction');
+const formDirection = document.getElementById('form-direction')
+const directionTitle = document.getElementById('direction-title');
 
-const button = document.getElementById('button');
 
-function renderList(){
-    const totalCard = singleVault.totalList();
+confirmAge.addEventListener('click', () => {
+    localStorage.setItem('age', 'true');
+    question.classList.add('hidden');
+    direction.classList.remove('hidden')
 
-    for (let card of totalCard){
-        drinkCard(card.name, card.value.toString());
-    }
+    
+    console.log(localStorage.getItem('age'))
 
-    button.classList.add('hidden');
+});
+
+
+errorAge.addEventListener('click', () => {
+
+    question.classList.add('hidden');
+    error.classList.remove('hidden');
+
+});
+
+confirmDirection.addEventListener('click', () => {
+    intro.classList.add('hidden');
+    main.classList.remove('hidden');
+    localStorage.setItem('direction', formDirection.value || "Sin direccion ingresada");
+    directionTitle.innerHTML = localStorage.getItem('direction')
+})
+
+
+
+function randomPrice() { 
+    return Math.floor(Math.random() * (1000 - 100 + 1) + 100)
 }
 
-button.addEventListener('click', renderList);
+async function renderList (){
+    fetchDrinks().then(
+        totalList => {
+            for (const drink of totalList) {
+                let button = drinkCard(drink.name, randomPrice(), drink.icon, drink.id);
+                button.addEventListener('click', (event) => {console.log(event.target.id || undefined)})
+            }
+        }
+    )
 
+}
 
-
-
-
-
-// const vodka = document.getElementById('vodka');
-// const carrito = document.getElementById('carrito');
-
-
-// const obtenerPrecio = (precio, cuotas) => {return calcularCuotas(calcularIVA(precio),cuotas)}  
-
-// const calcularIVA = (precioTotal) => {
-//     return Math.round(precioTotal + (precioTotal * 0.30));
-// }
-
-// const calcularCuotas = (precioTotal, cantidadCuotas) => {
-//     return alert(`Pagaras en ${cantidadCuotas} cuotas de ${Math.round(precioTotal / cantidadCuotas)} pesos argentinos`);
-// }
-
-
-
-//event listeners
-
-
-// vodka.addEventListener('click', ()=>{
-//     cart.addProduct(new Vodka());
-//     alert(`Se agrego vodka al carrito`)
-// })
-
-// carrito.addEventListener('click', () => {
-//     alert(cart.total);
-// })
-
-
-//function para ordenar por precio
-
-// const sortByPrice = (arrayItems) => {
-//     //Esta funcion ordenara los items de forma ascendente
-//     //Sera un array de objects de bebidas
-
-//     arrayItems.sort((a, b) => {
-//         // a y b son objects 
-//         return a.price - b.price; 
-//     })
-// }
+const fetchDrinks = async() => {
+    
+    //objecto modelo
+    // {
+        //     "strDrink": "1-900-FUK-MEUP",
+        //     "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/uxywyw1468877224.jpg",
+        //     "idDrink": "15395"
+        // }
+        
+        let data;
+        
+        try{
+            const response = await fetch('../data.json')
+            data = await response.json();
+        }catch(error){
+            alert(error);
+        }
+        
+        for (let drink of data.drinks){
+            let temp = new Drink(drink.idDrink, drink.strDrink, randomPrice(), drink.strDrinkThumb);
+            singleVault.addProduct(temp);
+        }
+        return singleVault.totalList();
+    }
+    
+    const getButtons = async () =>{
+        await renderList();
+        
+        
+    }
+    
+    getButtons();
+   
+   
