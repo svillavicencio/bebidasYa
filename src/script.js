@@ -50,8 +50,11 @@ async function renderList (){
     fetchDrinks().then(
         totalList => {
             for (const drink of totalList) {
-                let button = drinkCard(drink.name, randomPrice(), drink.icon, drink.id);
-                button.addEventListener('click', (event) => {console.log(event.target.id || undefined)})
+                drinkCard(drink.name, randomPrice(), drink.icon, drink.id);
+                // button.addEventListener('click', (event) => {console.log(event.target.id || undefined)})
+                $(`#${drink.id}`).click( (event ) => { console.log(event.currentTarget.id)})
+
+                //currentTarget.id resuelve el bug del empty string que se prensentaba en la anterior version del codigo
             }
         }
     )
