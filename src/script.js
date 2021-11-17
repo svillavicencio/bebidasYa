@@ -4,21 +4,26 @@ import Drink from "./scripts/class/Drink.js"
 
 
 const main = document.getElementById('main');
-const question = document.getElementById('question');
+// const question = document.getElementById('question');
 const intro = document.getElementById('intro');
 const error = document.getElementById('error');
 const confirmAge = document.getElementById('button-confirm-age');
 const errorAge = document.getElementById('button-error-age');
 const confirmDirection = document.getElementById('button-confirm-direction');
-const direction = document.getElementById('direction');
+// const direction = document.getElementById('direction');
 const formDirection = document.getElementById('form-direction')
 const directionTitle = document.getElementById('direction-title');
 
+$('#direction').hide();
 
 confirmAge.addEventListener('click', () => {
     localStorage.setItem('age', 'true');
-    question.classList.add('hidden');
-    direction.classList.remove('hidden')
+    // question.classList.add('hidden');
+    $('#question').fadeOut(750, ()=>{
+        // direction.classList.remove('hidden');
+        $('#direction').fadeIn(750);
+    });
+    
 
     
     console.log(localStorage.getItem('age'))
@@ -28,14 +33,17 @@ confirmAge.addEventListener('click', () => {
 
 errorAge.addEventListener('click', () => {
 
-    question.classList.add('hidden');
-    error.classList.remove('hidden');
+    $('#question').fadeOut(750, ()=>{
+        $('#error').fadeIn();
+    })
 
 });
 
 confirmDirection.addEventListener('click', () => {
-    intro.classList.add('hidden');
-    main.classList.remove('hidden');
+    $('#intro').fadeOut('slow', ()=>{
+        main.classList.remove('hidden');
+    })
+    
     localStorage.setItem('direction', formDirection.value || "Sin direccion ingresada");
     directionTitle.innerHTML = localStorage.getItem('direction')
 })
