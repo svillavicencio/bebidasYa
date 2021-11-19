@@ -1,4 +1,3 @@
-import drinkCard from "./components/Card.js";
 import singleVault from "./scripts/class/Vault.js";
 import Drink from "./scripts/class/Drink.js"
 
@@ -48,58 +47,60 @@ confirmDirection.addEventListener('click', () => {
     directionTitle.innerHTML = localStorage.getItem('direction')
 })
 
+$('#carrito').click(()=>{$('#checkout').removeClass('translate-x-full')})
+$('#close-checkout').click(()=>{$('#checkout').addClass('translate-x-full')})
+$('#search').on('input', function(event){singleVault.filteredList(event.target.value)});
+$('#buy').click(()=>{singleVault.confirmBuy()});
 
 
-function randomPrice() { 
-    return Math.floor(Math.random() * (1000 - 100 + 1) + 100)
-}
+// function randomPrice() { 
+//     return Math.floor(Math.random() * (1000 - 100 + 1) + 100)
+// }
 
-async function renderList (){
-    fetchDrinks().then(
-        totalList => {
-            for (const drink of totalList) {
-                drinkCard(drink.name, randomPrice(), drink.icon, drink.id);
-                // button.addEventListener('click', (event) => {console.log(event.target.id || undefined)})
-                $(`#${drink.id}`).click( (event ) => { console.log(event.currentTarget.id)})
+// async function renderList (){
 
-                //currentTarget.id resuelve el bug del empty string que se prensentaba en la anterior version del codigo
-            }
-        }
-    )
 
-}
-
-const fetchDrinks = async() => {
+//     let totalList = await singleVault.totalList();
     
-    //objecto modelo
-    // {
-        //     "strDrink": "1-900-FUK-MEUP",
-        //     "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/uxywyw1468877224.jpg",
-        //     "idDrink": "15395"
-        // }
+
         
-        let data;
-        
-        try{
-            const response = await fetch('../data.json')
-            data = await response.json();
-        }catch(error){
-            alert(error);
-        }
-        
-        for (let drink of data.drinks){
-            let temp = new Drink(drink.idDrink, drink.strDrink, randomPrice(), drink.strDrinkThumb);
-            singleVault.addProduct(temp);
-        }
-        return singleVault.totalList();
-    }
+//             for (const drink of totalList) {
+//                 drinkCard(drink.name, randomPrice(), drink.icon, drink.id);
+//                 // button.addEventListener('click', (event) => {console.log(event.target.id || undefined)})
+//                 $(`#${drink.id}`).click(()=>{console.log(singleVault.totalList())})
+
+//                 //currentTarget.id resuelve el bug del empty string que se prensentaba en la anterior version del codigo
+//             }
     
-    const getButtons = async () =>{
-        await renderList();
-        
-        
-    }
+// }
+
+
+
+
+// const fetchDrinks = async() => {
     
-    getButtons();
+//     //objecto modelo
+//     // {
+//         //     "strDrink": "1-900-FUK-MEUP",
+//         //     "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/uxywyw1468877224.jpg",
+//         //     "idDrink": "15395"
+//         // }
+        
+//         let data;
+        
+//         try{
+//             const response = await fetch('../data.json')
+//             data = await response.json();
+//         }catch(error){
+//             alert(error);
+//         }
+        
+//         for (let drink of data.drinks){
+//             let temp = new Drink(drink.idDrink, drink.strDrink, randomPrice(), drink.strDrinkThumb);
+//             singleVault.addProduct(temp);
+//         }
+//         return singleVault.totalList();
+//     }
+    
    
    

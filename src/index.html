@@ -57,31 +57,45 @@
             </svg>
         </button>
     </div>
+
+    
+    <div id='checkout' class="flex flex-col bg-blue-100 fixed space-y-6 w-72 right-0 h-screen transform transition translate-x-full duration-200 ease-in-out shadow-md divide-y-2 divide-gray-400 px-2 py-2.5">
+
+
+        <div class='flex flex-row justify-between w-full px-2 pt-2.5'>
+            <p class="text-black text-2xl font-semibold">Checkout</p>
+            <div id='close-checkout'class="bg-red-500 rounded-md cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                  </svg>
+            </div>
+        </div>
+
+        <div id='cart' class="overflow-y-scroll flex-grow"></div>
+
+        <button id='buy' class="bg-green-500 text-white rounded-md shadow-md w-full py-2.5">Comprar</button>
+
+    </div>
     
     <!--MAIN CONTENT-->
     <div class="main">
+        <!--Carrito-->
 
-
+        
         <!--INPUT TEXT-->
         <div class="container max-w-full my-3 flex flex-row">
-            <input type="text" class="container max-w-full rounded-md" placeholder="Buscar producto...">
+            <input id='search' type="text" class="container max-w-full rounded-md" placeholder="Buscar producto...">
             <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 flex-rowh-10 w-10 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-              </svg>
+            </svg>
         </div>
         
-
+        
         <!--CARD LIST-->
         <div id="cardList" class="cardList">
 
-
-
-            <!--CARD-->
-
-
-            
-
         </div>
+        
     </div>
 
 

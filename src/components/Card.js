@@ -1,4 +1,4 @@
-// const cardList = document.getElementById('cardList');
+import singleVault from "../scripts/class/Vault.js";
 
 export default function drinkCard (name, value, icon, id) {
 
@@ -23,17 +23,11 @@ export default function drinkCard (name, value, icon, id) {
     </div>
 `;
 
-    $('#cardList').append(content);
+$('#cardList').append(content);
 
-
-
-
-    
-    // let card = document.createElement('div');
-    // card.classList.add('card')
-
-    
-    // cardList.appendChild(card);
-    // return card.querySelector('button');
+$(`#${id}`).click( () => {
+    singleVault.addProductCart(id);
+    $(`#${id} p`).text('Agregado');
+})
 }
 

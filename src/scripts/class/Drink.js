@@ -4,6 +4,8 @@ class Drink {
         this.name = name;
         this.value = value;
         this.icon = icon;
+        this.sold = false;
+        this.added = false;
     }
 
     get price(){
