@@ -12,7 +12,7 @@ function randomPrice() {
 class Vault {
     constructor(){
         this.vault = [];
-        const URL = '../../../data.json'
+        const URL = '../data.json'
         $.get(URL, (resp, state) => {
             if(state === 'success'){
                 let data = resp;
@@ -118,5 +118,4 @@ class Vault {
 }
 
 const singleVault = new Vault();
-
 export default singleVault;
